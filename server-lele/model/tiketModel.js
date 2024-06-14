@@ -10,13 +10,13 @@ const Tiket = mongoose.model('Tiket', {
         required: true
     },
     nama: {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
         required: true
     },
     status: {
         type: Boolean,
         required: true
-    },
+    }
 });
 
 module.exports = Tiket;

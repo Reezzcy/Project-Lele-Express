@@ -1,24 +1,24 @@
 const Jadwal = require('../model/jadwal');
 const Kereta = require('../model/keretaModel');
 
-const postJadwal = (req) => {
-    Jadwal.insertOne(req.body);
+const postJadwal = async (req) => {
+    await Jadwal.insertOne(req.body);
 };
 
-const getAllJadwal = () => {
-    return Jadwal.find().toArray((error, result) => result);
+const getAllJadwal = async () => {
+    return await Jadwal.find();
 };
 
-const getJadwalByTujuan = (idStasiun) => {
-    return Jadwal.find({ idStasiunAkhir: idStasiun}).toArray((error, result) => result);
+const getJadwalByTujuan = async (req) => {
+    return await Jadwal.find({ idStasiunAkhir: req.body.idStasiunAkhir});
 };
 
-const getJadwalByKeberangkatan = (idStasiun) => {
-    return Jadwal.find({ idStasiunAkhir: idStasiun}).toArray((error, result) => result);
+const getJadwalByKeberangkatan = async (req) => {
+    return await Jadwal.find({ idStasiunAwal: req.body.idStasiunAkhir});
 };
 
-const getJadwalByTanggal = (tanggal) => {
-    return Jadwal.find({ tanggal }).toArray((error, result) => result);
+const getJadwalByTanggal = async (req) => {
+    return await Jadwal.find({ tanggal: req.body.tanggal });
 };
 
 const putJadwal = (req) => {
@@ -44,8 +44,8 @@ const postKereta = (req) => {
     Kereta.insertOne(req.body);
 };
 
-const getAllKereta = () => {
-    return Kereta.find().toArray((error, result) => result);
+const getAllKereta = async () => {
+    return await Kereta.find();
 };
 
 const putKereta = (req) => {
@@ -53,7 +53,8 @@ const putKereta = (req) => {
         { _id: req.body._id},
         {
             $set: {
-                
+                namaKereta: req.body.namaKereta,
+                jumlahGerbong: req.body.jumlahGerbong
             }
         }
     );

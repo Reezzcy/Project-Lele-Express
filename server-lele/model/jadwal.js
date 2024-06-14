@@ -14,11 +14,11 @@ const Jadwal = mongoose.model('Jadwal', {
         required: true
     },
     tanggal: {
-        type: Date,
+        type: String,
         required: true
     },
     jam: {
-        type: Date,
+        type: String,
         require: true
     }
 });

@@ -5,14 +5,10 @@ const Kereta = mongoose.model('Kereta', {
         type: String,
         required: true
     },
-    gerbong: {
+    jumlahGerbong: {
         type: String,
         required: true
-    },
-    jumlahBangku: {
-        type: String,
-        required: true
-    },
+    }
 });
 
 module.exports = Kereta;
