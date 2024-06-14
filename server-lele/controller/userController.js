@@ -27,3 +27,10 @@ const putEditUser = (req) => {
         }
     );
 };
+
+module.exports = {
+    postUser,
+    getUserId,
+    getUserLogin,
+    putEditUser
+};

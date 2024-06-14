@@ -59,3 +59,16 @@ const putKereta = (req) => {
         }
     );
 };
+
+module.exports = { 
+    postJadwal,
+    getAllJadwal,
+    getJadwalByTujuan,
+    getJadwalByKeberangkatan,
+    getJadwalByTanggal,
+    putJadwal,
+    deleteJadwal,
+    postKereta,
+    getAllKereta,
+    putKereta
+};
