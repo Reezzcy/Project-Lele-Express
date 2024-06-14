@@ -1,0 +1,40 @@
+{
+  "user": [
+    {
+      "id": "U00001",
+      "email": "Quinella@admin.lele.com",
+      "nama": "Quinella",
+      "password": "password123"
+    },
+    {
+      "id": "U00002",
+      "email": "janesmith@admin.lele.com",
+      "nama": "Jane Smith",
+      "password": "password456"
+    },
+    {
+      "id": "U00003",
+      "email": "alicejohnson@example.com",
+      "nama": "Alice Johnson",
+      "password": "password789"
+    },
+    {
+      "id": "U00004",
+      "email": "bobbrown@example.com",
+      "nama": "Bob Brown",
+      "password": "password012"
+    },
+    {
+      "id": "U00005",
+      "email": "carolwhite@example.com",
+      "nama": "Carol White",
+      "password": "password345"
+    },
+    {
+      "id": "U00006",
+      "nama": "jawa",
+      "email": "jawa@gmail.com",
+      "password": "jawa123"
+    }
+  ]
+}
