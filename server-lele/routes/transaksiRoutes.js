@@ -18,4 +18,4 @@ router.get('', getTiketByKeberangkatan);
 router.get('', getTiketByTanggal);
 router.get('', getDetailTiket);
 
-module.export = router;
+module.exports = router;

@@ -10,4 +10,4 @@ const router = express.Router();
 router.get('', getPenjualan);
 router.get('', getPenjualanByTujuan);
 
-module.export = router;
+module.exports = router;

@@ -1,0 +1,11 @@
+{
+  "scripts": {
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "nodemon server-lele/server.js",
+    "client": "npm run dev --prefix my-react-app"
+  },
+  "dependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^2.0.22"
+  }
+}

@@ -26,4 +26,4 @@ router.post('', postKereta);
 router.get('', getAllKereta);
 router.put('', putKereta);
 
-module.export = router;
+module.exports = router;

@@ -12,6 +12,7 @@ const getUserId = async (id) => {
 
 const getUserLogin = async (id, password) => {
     const user = await User.findOne({ _id: id });
+    console.log(user);
     return user.password !== password? flase : true
 };
 
