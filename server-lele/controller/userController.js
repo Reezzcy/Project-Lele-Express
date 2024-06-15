@@ -4,16 +4,33 @@ const postUser = (req) => {
     User.inserOne(req.body);
 };
 
-const getUserId = async (id) => {
-    const user = await User.findOne({ _id: id });
+const getUserId = async (req) => {
+    const user = await User.findOne({ _id: req.params.id });
 
     return user
 };
 
-const getUserLogin = async (id, password) => {
-    const user = await User.findOne({ _id: id });
-    console.log(user);
-    return user.password !== password? flase : true
+const postUserLogin = async (req) => {
+    const { nama, email, password } = req.body;
+    const account = User.findOne({ nama, email});
+
+    if (nama === account.nama && account.email && password === account.password) {
+        if (nama.includes('@admin.lele.com')){
+            req.session.user = {
+                username: 'admin',
+                role: 'admin'
+            };
+            res.redirect('/admin');
+        } else {
+            req.session.user = {
+                username: 'user',
+                role: 'user'
+            };
+            res.redirect('/user');
+        }
+    } else {
+        res.send('Invalid credentials');
+    }
 };
 
 const putEditUser = (req) => {
@@ -32,6 +49,6 @@ const putEditUser = (req) => {
 module.exports = {
     postUser,
     getUserId,
-    getUserLogin,
+    postUserLogin,
     putEditUser
 };

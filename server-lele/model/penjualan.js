@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const Penjualan = mongoose.model('Penjualan', {
     idJadwal: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: true
     },
     jumlahPenjualan: {

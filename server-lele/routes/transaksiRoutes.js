@@ -1,4 +1,5 @@
 const express = require('express');
+const { userMiddleware } = require('../middleware/auth');
 
 const {
     postTiket,
@@ -11,11 +12,11 @@ const {
 
 const router = express.Router();
 
-router.post('', postTiket);
-router.get('', getTiketByJadwal);
-router.get('', getTiketByTujuan);
-router.get('', getTiketByKeberangkatan);
-router.get('', getTiketByTanggal);
-router.get('', getDetailTiket);
+router.post('/add', userMiddleware, postTiket);
+router.get('/jadwal', userMiddleware, getTiketByJadwal);
+router.get('/tujuan', userMiddleware, getTiketByTujuan);
+router.get('/keberangkatan', userMiddleware, getTiketByKeberangkatan);
+router.get('/tanggal', userMiddleware, getTiketByTanggal);
+router.get('/detail', userMiddleware, getDetailTiket);
 
 module.exports = router;

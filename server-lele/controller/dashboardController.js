@@ -44,8 +44,8 @@ const postKereta = (req) => {
     Kereta.insertOne(req.body);
 };
 
-const getAllKereta = async () => {
-    return await Kereta.find();
+const getAllKereta = async (req, res) => {
+    res.json(await Kereta.find());
 };
 
 const putKereta = (req) => {

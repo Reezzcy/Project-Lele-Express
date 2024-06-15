@@ -1,4 +1,5 @@
 const express = require('express');
+const { adminMiddleware } = require('../middleware/auth');
 
 const {
     postJadwal,
@@ -15,15 +16,15 @@ const {
 
 const router = express.Router();
 
-router.post('', postJadwal);
-router.get('', getAllJadwal);
-router.get('', getJadwalByTujuan);
-router.get('', getJadwalByKeberangkatan);
-router.get('', getJadwalByTanggal);
-router.put('', putJadwal);
-router.delete('', deleteJadwal);
-router.post('', postKereta);
-router.get('', getAllKereta);
-router.put('', putKereta);
+router.post('/add-jadwal', adminMiddleware, postJadwal);
+router.get('/jadwal', getAllJadwal);
+router.get('/tujuan', getJadwalByTujuan);
+router.get('/keberangkatan', getJadwalByKeberangkatan);
+router.get('/tanggal', getJadwalByTanggal);
+router.put('/jadwal', adminMiddleware, putJadwal);
+router.delete('/delete-jadwal', adminMiddleware, deleteJadwal);
+router.post('/add-kereta', adminMiddleware, postKereta);
+router.get('/kereta', getAllKereta);
+router.put('/edit-kereta', adminMiddleware,putKereta);
 
 module.exports = router;

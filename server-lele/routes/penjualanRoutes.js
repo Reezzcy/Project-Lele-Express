@@ -1,4 +1,5 @@
 const express = require('express');
+const { adminMiddleware } = require('../middleware/auth');
 
 const {
     getPenjualan,
@@ -7,7 +8,7 @@ const {
 
 const router = express.Router();
 
-router.get('', getPenjualan);
-router.get('', getPenjualanByTujuan);
+router.get('/penjualan', adminMiddleware, getPenjualan);
+router.get('/tujuan', adminMiddleware, getPenjualanByTujuan);
 
 module.exports = router;

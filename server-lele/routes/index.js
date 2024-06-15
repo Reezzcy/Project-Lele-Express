@@ -5,12 +5,12 @@ const dashboardRoutes = require('./dashboardRoutes');
 const penjualanRoutes = require('./penjualanRoutes');
 const transaksiRoutes = require('./transaksiRoutes');
 const userRoutes = require('./userRoutes');
-const { showLogin, processLogin } = require('../controller/loginController');
+// const { showLogin, processLogin } = require('../controller/loginController');
 
 const router = express.Router();
 
-router.get('/', showLogin);
-router.post('/login', processLogin);
+// router.get('/', showLogin);
+// router.post('/login', processLogin);
 
 router.use('/dashboard', dashboardRoutes);
 router.use('/penjualan', penjualanRoutes);
