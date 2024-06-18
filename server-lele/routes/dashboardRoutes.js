@@ -11,21 +11,23 @@ const {
     deleteJadwal,
     postKereta,
     getAllKereta,
-    putKereta
+    putKereta,
+    deleteKereta
 } = require('../controller/dashboardController');
 
 const router = express.Router();
 
 router.get('/jadwal', getAllJadwal);
-router.get('/kereta', getAllKereta);
 router.get('/tujuan', getJadwalByTujuan);
 router.get('/keberangkatan', getJadwalByKeberangkatan);
 router.get('/tanggal', getJadwalByTanggal);
 
-router.put('/jadwal', adminMiddleware, putJadwal);
+router.get('/kereta', adminMiddleware, getAllKereta);
+router.post('/add-jadwal', adminMiddleware, postJadwal);
+router.put('/edit-jadwal', adminMiddleware, putJadwal);
 router.delete('/delete-jadwal', adminMiddleware, deleteJadwal);
 router.post('/add-kereta', adminMiddleware, postKereta);
-router.post('/add-jadwal', adminMiddleware, postJadwal);
 router.put('/edit-kereta', adminMiddleware,putKereta);
+router.delete('/delete-kereta', adminMiddleware,deleteKereta);
 
 module.exports = router;

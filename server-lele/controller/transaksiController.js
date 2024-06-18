@@ -15,8 +15,8 @@ const getTiketByUser = async (req, res) => {
         const tiketTrue = await Tiket.find({ nama: req.body.nama, status: true });
         const tiketFalse = await Tiket.find({ nama: req.body.nama, status: false });
         
-        const result = [...tiketFalse];
-        result.push(...tiketTrue);
+        const result = [...tiketTrue];
+        result.push(...tiketFalse);
         
         res.json(result);
     } catch {

@@ -30,7 +30,7 @@ const getJadwalByTujuan = async (req, res) => {
 
 const getJadwalByKeberangkatan = async (req, res) => {
     try {
-        const jadwal = await Jadwal.find({ idStasiunAwal: req.body.idStasiunAkhir});
+        const jadwal = await Jadwal.find({ idStasiunAwal: req.body.idStasiunAwal});
         res.json(jadwal);
     } catch {
         res.json({msg: 'Jadwal tidak ditemukan!'});
@@ -109,6 +109,15 @@ const putKereta = (req, res) => {
     }
 };
 
+const deleteKereta = (req, res) => {
+    try {
+        Kereta.deleteOne({ _id: req.body._id });
+        res.json({msg: 'Kereta berhasil dihapus!'});
+    } catch {
+        res.json({msg: 'Kereta gagal dihapus!'});
+    }
+};
+
 module.exports = { 
     postJadwal,
     getAllJadwal,
@@ -119,5 +128,6 @@ module.exports = {
     deleteJadwal,
     postKereta,
     getAllKereta,
-    putKereta
+    putKereta,
+    deleteKereta
 };
