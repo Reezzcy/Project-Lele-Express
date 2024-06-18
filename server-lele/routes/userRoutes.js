@@ -3,7 +3,6 @@ const express = require('express');
 const {
     postUser,
     getUserId,
-    // getUserLogin,
     postUserLogin,
     putEditUser
 } = require('../controller/userController');
@@ -11,7 +10,7 @@ const {
 const router = express.Router();
 
 router.post('/add', postUser);
-router.get('/:id', getUserId);
+router.get('/id', getUserId);
 router.post('/login', postUserLogin);
 router.put('/edit', putEditUser);
 
