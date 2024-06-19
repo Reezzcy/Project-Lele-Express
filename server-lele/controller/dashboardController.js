@@ -74,7 +74,9 @@ const putJadwal = async (req, res) => {
 
 const deleteJadwal = async (req, res) => {
     try {
+        console.log("aaasu")
         await Jadwal.deleteOne({ _id: req.body._id });
+        console.log("kkkk")
         res.json({ msg: 'Jadwal berhasil dihapus!' });
     } catch (error) {
         res.status(500).json({ msg: 'Jadwal gagal dihapus!', error });
