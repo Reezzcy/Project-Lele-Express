@@ -22,7 +22,7 @@ server.use(session({
     secret: 'secret',
     resave: false,
     saveUninitialized: true,
-    cookie: { maxAge: 60000 }
+    cookie: { maxAge: 3600000 }
 }));
 
 server.use(express.json());

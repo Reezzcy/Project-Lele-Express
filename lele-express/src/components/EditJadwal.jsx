@@ -15,6 +15,11 @@ function EditJadwal() {
   const handleDelete = (id) => {
     fetch(`http://localhost:3000/admin/delete-jadwal/${id}`, {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ _id: id }), // Correct the body to send the id directly
+      credentials: "include"
     })
       .then(() => {
         // Remove the deleted item from the state

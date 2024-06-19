@@ -2,7 +2,7 @@ const adminMiddleware = (req, res, next) => {
     if (req.session.user && req.session.user.role === 'admin') {
         next();
     } else {
-        res.redirect('/login');
+        res.status(401).json({ msg: 'No active session' });
     }
 };
 
@@ -10,7 +10,7 @@ const userMiddleware = (req, res, next) => {
     if (req.session.user && req.session.user.role === 'user') {
         next();
     } else {
-        res.redirect('/login');
+        res.status(401).json({ msg: 'No active session' });
     }
 };
 
