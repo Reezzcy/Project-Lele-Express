@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 function EditJadwal() {
   const [jadwal, setJadwal] = useState([]);
-  
+
   useEffect(() => {
     // Fetch schedule data from the JSON server
     fetch("http://localhost:3000/admin/jadwal")
@@ -13,10 +13,13 @@ function EditJadwal() {
   }, []);
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:3000/admin/delete-jadwal`, {
+    fetch("http://localhost:3000/admin/delete-jadwal", {
       method: "DELETE",
-      body: JSON.stringify({ _id:id }),
-      credentials: "include",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ _id: id }),
+      credentials: "include"
     })
       .then(() => {
         // Remove the deleted item from the state
