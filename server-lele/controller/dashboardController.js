@@ -3,7 +3,7 @@ const Kereta = require('../model/keretaModel');
 
 const postJadwal = async (req, res) => {
     try {
-        await Jadwal.insertOne(req.body);
+        await Jadwal.insertMany(req.body);
         res.json({ msg: 'Berhasil input jadwal' });
     } catch (error) {
         res.status(500).json({ msg: 'Gagal input jadwal', error });
@@ -21,7 +21,6 @@ const postJadwal = async (req, res) => {
 
 const getAllJadwal = async (req, res) => {
     try {
-        console.log('arr1')
         Jadwal.insertMany(
             {
             "idKereta": "666db8815e95343878e7da48",
@@ -30,12 +29,10 @@ const getAllJadwal = async (req, res) => {
             "tanggal": "20 10 2024",
             "jam": "8"
             })
-            console.log('arr11/2')
         const jadwal = await Jadwal.find()
             .populate('idKereta')
             .populate('idStasiunAwal')
             .populate('idStasiunAkhir');
-        console.log("arr2")
         res.json(jadwal);
     } catch (error) {
         console.error('Error fetching jadwal:', error);
@@ -102,7 +99,7 @@ const deleteJadwal = async (req, res) => {
 
 const postKereta = async (req, res) => {
     try {
-        await Kereta.insertOne(req.body);
+        await Kereta.insertMany(req.body);
         res.json({ msg: 'Berhasil input kereta!' });
     } catch (error) {
         res.status(500).json({ msg: 'Gagal input kereta!', error });

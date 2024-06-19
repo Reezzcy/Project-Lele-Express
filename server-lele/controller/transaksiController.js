@@ -3,7 +3,7 @@ const Tiket = require('../model/tiketModel');
 
 const postTiket = async (req, res) => {
     try {
-        await Tiket.insertOne(req.body);
+        await Tiket.insertMany(req.body);
         res.json({ msg: 'Berhasil input tiket!' });
     } catch (error) {
         res.status(500).json({ msg: 'Gagal input tiket!', error });
