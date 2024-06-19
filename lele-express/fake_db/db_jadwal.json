@@ -1,0 +1,61 @@
+{
+    "jadwal": [
+      {
+        "idKereta": {
+          "$oid": "666db8815e95343878e7da48"
+        },
+        "stasiunAwal": {
+          "$oid": "666db41549e50bd0facdcdfa"
+        },
+        "stasiunAkhir": {
+          "$oid": "666db41a49e50bd0facdcdfb"
+        },
+        "namaKereta": "Argo Lele Jumbo",
+        "jumlahGerbong": "8",
+        "__v": 0
+      },
+      {
+        "idKereta": {
+          "$oid": "666db8815e95343878e7da49"
+        },
+        "stasiunAwal": {
+          "$oid": "666db41549e50bd0facdcdfc"
+        },
+        "stasiunAkhir": {
+          "$oid": "666db41a49e50bd0facdcdfd"
+        },
+        "namaKereta": "Argo Dwi Pangga",
+        "jumlahGerbong": "10",
+        "__v": 0
+      },
+      {
+        "idKereta": {
+          "$oid": "666db8815e95343878e7da50"
+        },
+        "stasiunAwal": {
+          "$oid": "666db41549e50bd0facdcdfd"
+        },
+        "stasiunAkhir": {
+          "$oid": "666db41a49e50bd0facdcdfc"
+        },
+        "namaKereta": "Argo Bromo Anggrek",
+        "jumlahGerbong": "12",
+        "__v": 0
+      },
+      {
+        "idKereta": {
+          "$oid": "666db8815e95343878e7da51"
+        },
+        "stasiunAwal": {
+          "$oid": "666db41549e50bd0facdcdfb"
+        },
+        "stasiunAkhir": {
+          "$oid": "666db41a49e50bd0facdcdfa"
+        },
+        "namaKereta": "Argo Lawu",
+        "jumlahGerbong": "9",
+        "__v": 0
+      }
+    ]
+  }
+  
