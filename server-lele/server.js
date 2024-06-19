@@ -11,8 +11,8 @@ const server = express();
 const port = 3000;
 
 const corsOptions = {
-    origin: 'http://localhost:5173', // Update this to your client URL
-    credentials: true, // Allow credentials (cookies, headers)
+    origin: 'http://localhost:5173',
+    credentials: true,
 };
 
 server.use(cors(corsOptions));

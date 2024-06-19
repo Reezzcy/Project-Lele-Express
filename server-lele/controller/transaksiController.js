@@ -1,26 +1,26 @@
 const Jadwal = require('../model/jadwal');
 const Tiket = require('../model/tiketModel');
 
-const postTiket = (req, res) => {
+const postTiket = async (req, res) => {
     try {
-        Tiket.insertOne(req.body);
-        res.json({msg: 'Berhasil input tiket!'});
-    } catch {
-        res.json({msg: 'Gagal input tiket!'});
+        await Tiket.insertOne(req.body);
+        res.json({ msg: 'Berhasil input tiket!' });
+    } catch (error) {
+        res.status(500).json({ msg: 'Gagal input tiket!', error });
     }
 };
 
 const getTiketByUser = async (req, res) => {
     try {
-        const tiketTrue = await Tiket.find({ nama: req.body.nama, status: true });
-        const tiketFalse = await Tiket.find({ nama: req.body.nama, status: false });
+        const { nama } = req.body;
+        const tiketTrue = await Tiket.find({ nama, status: true });
+        const tiketFalse = await Tiket.find({ nama, status: false });
+
+        const result = [...tiketTrue, ...tiketFalse];
         
-        const result = [...tiketTrue];
-        result.push(...tiketFalse);
-        
-        res.json(result);
-    } catch {
-        res.json({msg: 'Tiket tidak ditemukan!'});
+        return result;
+    } catch (error) {
+        res.status(500).json({ msg: 'Tiket tidak ditemukan!', error });
     }
 };
 
@@ -28,19 +28,19 @@ const getTiketByJadwal = async (req, res) => {
     try {
         const tiket = await Tiket.find({ idJadwal: req.body.idJadwal });
         res.json(tiket);
-    } catch {
-        res.json({msg: 'Tiket tidak ditemukan!'});
+    } catch (error) {
+        res.status(500).json({ msg: 'Tiket tidak ditemukan!', error });
     }
 };
-    
+
 const getTiketByTujuan = async (req, res) => {
     try {
         const tikets = await getTiketByUser(req);
         const filteredTikets = tikets.filter((tiket) => tiket.idStasiunAkhir === req.body.idStasiunAkhir);
         
         res.json(filteredTikets);
-    } catch {
-        res.json({msg: 'Tiket tidak ditemukan!'});
+    } catch (error) {
+        res.status(500).json({ msg: 'Tiket tidak ditemukan!', error });
     }
 };
 
@@ -50,8 +50,8 @@ const getTiketByKeberangkatan = async (req, res) => {
         const filteredTikets = tikets.filter((tiket) => tiket.idStasiunAwal === req.body.idStasiunAwal);
     
         res.json(filteredTikets);
-    } catch {
-        res.json({msg: 'Tiket tidak ditemukan!'});
+    } catch (error) {
+        res.status(500).json({ msg: 'Tiket tidak ditemukan!', error });
     }
 };
 
@@ -61,9 +61,7 @@ const getTiketByTanggal = async (req, res) => {
         const userTikets = await getTiketByUser(req);
     
         const filteredTikets = userTikets.filter(tiket => {
-            return jadwals.some(jadwal => {
-                jadwal._id.equals(tiket.idJadwal);
-            });
+            return jadwals.some(jadwal => jadwal._id.equals(tiket.idJadwal));
         });
     
         const result = filteredTikets.map(tiket => {
@@ -76,7 +74,7 @@ const getTiketByTanggal = async (req, res) => {
                 jadwalDetails: {
                     idKereta: jadwal.idKereta,
                     idStasiunAwal: jadwal.idStasiunAwal,
-                    idStasiunAkhir: idStasiunAkhir,
+                    idStasiunAkhir: jadwal.idStasiunAkhir,
                     tanggal: jadwal.tanggal,
                     jam: jadwal.jam
                 }
@@ -84,17 +82,17 @@ const getTiketByTanggal = async (req, res) => {
         });
     
         res.json(result);
-    } catch {
-        res.json({msg: 'Tiket tidak ditemukan!'});
+    } catch (error) {
+        res.status(500).json({ msg: 'Tiket tidak ditemukan!', error });
     }
 };
 
 const getDetailTiket = async (req, res) => {
     try {
-        const tiket = await Tiket.find({ _id: req.body._id });
-        res.json(tiket)
-    } catch {
-        res.json({msg: 'Detail tidak ditemukan!!'});
+        const tiket = await Tiket.findById(req.body._id);
+        res.json(tiket);
+    } catch (error) {
+        res.status(500).json({ msg: 'Detail tidak ditemukan!', error });
     }
 };
 

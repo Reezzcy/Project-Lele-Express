@@ -1,6 +1,30 @@
 const Jadwal = require('../model/jadwal');
 const Penjualan = require('../model/penjualan');
 
+const hitungDokumenPerIdJadwal = async (req, res) => {
+    try {
+        const hasil = await Penjualan.aggregate([
+            {
+                $group: {
+                    _id: "$idJadwal", // Mengelompokkan berdasarkan idJadwal
+                    count: { $sum: 1 } // Menghitung jumlah dokumen dalam setiap grup
+                }
+            },
+            {
+                $project: {
+                    _id: 0, // Menghilangkan field _id dari hasil akhir
+                    idJadwal: "$_id", // Menambahkan field idJadwal dengan nilai dari _id grup sebelumnya
+                    count: 1 // Menyertakan field count dalam hasil akhir
+                }
+            }
+        ]);
+
+        res.json(hasil); // Mengirimkan hasil dalam format JSON
+    } catch (error) {
+        res.status(500).json({ message: "Terjadi kesalahan.", error: error.message });
+    }
+};
+
 const getPenjualan = async (req, res) => {
     try {
         const penjualan = await Penjualan.find();

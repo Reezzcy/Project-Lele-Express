@@ -1,12 +1,12 @@
 const Jadwal = require('../model/jadwal');
 const Kereta = require('../model/keretaModel');
 
-const postJadwal = (req, res) => {
-    try{
-        Jadwal.insertOne(req.body);
-        res.json({msg: 'Berhasil input jadwal'});
-    } catch {
-        res.json({msg: 'Gagal input jadwal'});
+const postJadwal = async (req, res) => {
+    try {
+        await Jadwal.insertOne(req.body);
+        res.json({ msg: 'Berhasil input jadwal' });
+    } catch (error) {
+        res.status(500).json({ msg: 'Gagal input jadwal', error });
     }
 };
 
@@ -14,26 +14,26 @@ const getAllJadwal = async (req, res) => {
     try {
         const jadwal = await Jadwal.find();
         res.json(jadwal);
-    } catch {
-        res.json({msg: 'Jadwal tidak ditemukan!'});
+    } catch (error) {
+        res.status(500).json({ msg: 'Jadwal tidak ditemukan!', error });
     }
 };
 
 const getJadwalByTujuan = async (req, res) => {
     try {
-        const jadwal = await Jadwal.find({ idStasiunAkhir: req.body.idStasiunAkhir});
+        const jadwal = await Jadwal.find({ idStasiunAkhir: req.body.idStasiunAkhir });
         res.json(jadwal);
-    } catch {
-        res.json({msg: 'Jadwal tidak ditemukan!'});
+    } catch (error) {
+        res.status(500).json({ msg: 'Jadwal tidak ditemukan!', error });
     }
 };
 
 const getJadwalByKeberangkatan = async (req, res) => {
     try {
-        const jadwal = await Jadwal.find({ idStasiunAwal: req.body.idStasiunAwal});
+        const jadwal = await Jadwal.find({ idStasiunAwal: req.body.idStasiunAwal });
         res.json(jadwal);
-    } catch {
-        res.json({msg: 'Jadwal tidak ditemukan!'});
+    } catch (error) {
+        res.status(500).json({ msg: 'Jadwal tidak ditemukan!', error });
     }
 };
 
@@ -41,14 +41,14 @@ const getJadwalByTanggal = async (req, res) => {
     try {
         const jadwal = await Jadwal.find({ tanggal: req.body.tanggal });
         res.json(jadwal);
-    } catch {
-        res.json({msg: 'Jadwal tidak ditemukan!'});
+    } catch (error) {
+        res.status(500).json({ msg: 'Jadwal tidak ditemukan!', error });
     }
 };
 
-const putJadwal = (req, res) => {
+const putJadwal = async (req, res) => {
     try {
-        Jadwal.updateOne(
+        await Jadwal.updateOne(
             { _id: req.body._id },
             {
                 $set: {
@@ -60,26 +60,27 @@ const putJadwal = (req, res) => {
                 }
             }
         );
-    } catch {
-        res.json({msg: 'Jadwal gagal diupdate!'});
+        res.json({ msg: 'Jadwal berhasil diupdate' });
+    } catch (error) {
+        res.status(500).json({ msg: 'Jadwal gagal diupdate!', error });
     }
 };
 
-const deleteJadwal = (req, res) => {
+const deleteJadwal = async (req, res) => {
     try {
-        Jadwal.deleteOne({ _id: req.body._id });
-        res.json({msg: 'Jadwal berhasil dihapus!'});
-    } catch {
-        res.json({msg: 'Jadwal gagal dihapus!'});
+        await Jadwal.deleteOne({ _id: req.body._id });
+        res.json({ msg: 'Jadwal berhasil dihapus!' });
+    } catch (error) {
+        res.status(500).json({ msg: 'Jadwal gagal dihapus!', error });
     }
 };
 
-const postKereta = (req, res) => {
+const postKereta = async (req, res) => {
     try {
-        Kereta.insertOne(req.body);
-        res.json({msg: 'Berhasil input kereta!'});
-    } catch {
-        res.json({msg: 'Gagal input kereta!'});
+        await Kereta.insertOne(req.body);
+        res.json({ msg: 'Berhasil input kereta!' });
+    } catch (error) {
+        res.status(500).json({ msg: 'Gagal input kereta!', error });
     }
 };
 
@@ -87,15 +88,15 @@ const getAllKereta = async (req, res) => {
     try {
         const kereta = await Kereta.find();
         res.json(kereta);
-    } catch {
-        res.json({msg: 'Kereta tidak ditemukan!'});
+    } catch (error) {
+        res.status(500).json({ msg: 'Kereta tidak ditemukan!', error });
     }
 };
 
-const putKereta = (req, res) => {
+const putKereta = async (req, res) => {
     try {
-        Kereta.updateOne(
-            { _id: req.body._id},
+        await Kereta.updateOne(
+            { _id: req.body._id },
             {
                 $set: {
                     namaKereta: req.body.namaKereta,
@@ -103,18 +104,18 @@ const putKereta = (req, res) => {
                 }
             }
         );
-        res.json({msg: 'Kereta berhasil diupdate!'});
-    } catch {
-        res.json({msg: 'Kereta gagal diupdate!'});
+        res.json({ msg: 'Kereta berhasil diupdate!' });
+    } catch (error) {
+        res.status(500).json({ msg: 'Kereta gagal diupdate!', error });
     }
 };
 
-const deleteKereta = (req, res) => {
+const deleteKereta = async (req, res) => {
     try {
-        Kereta.deleteOne({ _id: req.body._id });
-        res.json({msg: 'Kereta berhasil dihapus!'});
-    } catch {
-        res.json({msg: 'Kereta gagal dihapus!'});
+        await Kereta.deleteOne({ _id: req.body._id });
+        res.json({ msg: 'Kereta berhasil dihapus!' });
+    } catch (error) {
+        res.status(500).json({ msg: 'Kereta gagal dihapus!', error });
     }
 };
 
