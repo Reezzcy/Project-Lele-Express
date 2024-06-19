@@ -14,7 +14,16 @@ const userMiddleware = (req, res, next) => {
     }
 };
 
+const getSession = (req, res) => {
+    if (req.session.user) {
+        res.json({ user: req.session.user });
+    } else {
+        res.status(401).json({ msg: 'No active session' });
+    }
+};
+
 module.exports= {
     adminMiddleware,
     userMiddleware,
+    getSession
 };

@@ -6,14 +6,14 @@ function EditJadwal() {
 
   useEffect(() => {
     // Fetch schedule data from the JSON server
-    fetch("http://localhost:3000/jadwal")
+    fetch("localhost:3000/admin/jadwal")
       .then((response) => response.json())
       .then((data) => setJadwal(data))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:3000/jadwal/${id}`, {
+    fetch(`localhost:3000/admin/jadwal${id}`, {
       method: "DELETE",
     })
       .then(() => {

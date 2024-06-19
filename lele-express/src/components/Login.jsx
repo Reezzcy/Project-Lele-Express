@@ -8,37 +8,84 @@ function Login() {
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
+  // const handleLogin = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const response = await fetch("http://localhost:3000/profile/login", { 
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ nama, email, password }),
+  //       credentials: "include",
+  //     });
+
+  //     if (!response.ok) {
+  //       throw new Error("Network response was not ok");
+  //     }
+
+  //     const result = await response.json();
+
+  //     if (result.msg === "Tidak dapat login!") {
+  //       setMessage("Invalid email or password");
+  //     } else {
+  //       setMessage(`Welcome ${nama}!`);
+  //       navigate("/dashboard");
+  //     }
+  //   } catch (error) {
+  //     setMessage("An error occurred. Please try again later.");
+  //     console.error("There was an error with the login request:", error);
+  //   }
+  // };
+
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch("http://localhost:5000/users");
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const users = await response.json();
-      const user = users.find(
-        (user) =>
-          user.nama === nama &&
-          user.email === email &&
-          user.password === password
-      );
+      const response = await fetch("http://localhost:3000/profile/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ nama, email, password }),
+        credentials: "include",
+      });
 
-      if (user) {
-        setMessage(`Welcome ${user.nama}!`);
-        if (email.endsWith("@admin.lele.com")) {
-          navigate("/dashboard-admin");
-        } else {
-          navigate("/dashboard-user");
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.msg);
+      }
+
+      const result = await response.json();
+
+      if (result.msg === "Login successful") {
+        setMessage(`Welcome ${nama}!`);
+
+        // Fetch the session data to determine the user's role
+        const sessionResponse = await fetch("http://localhost:3000/profile/session", {
+          method: "GET",
+          credentials: "include",
+        });
+
+        if (!sessionResponse.ok) {
+          const errorData = await sessionResponse.json();
+          throw new Error(errorData.msg);
         }
-      } else {
-        setMessage("Invalid email or password");
+
+        const sessionData = await sessionResponse.json();
+        const role = sessionData.user.role;
+
+        // Navigate based on the role
+        if (role === "admin") {
+          navigate("/dashboard2");
+        } else {
+          navigate("/dashboard");
+        }
       }
     } catch (error) {
-      setMessage("An error occurred. Please try again later.");
+      setMessage(error.message || "An error occurred. Please try again later.");
       console.error("There was an error with the login request:", error);
     }
   };
-
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="flex flex-col md:flex-row max-w-4xl w-full bg-white rounded-lg shadow-lg overflow-hidden">
@@ -68,7 +115,7 @@ function Login() {
               <label className="block text-gray-700 mb-2">Email</label>
               <input
                 type="email"
-                name="Email"
+                name="email"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
