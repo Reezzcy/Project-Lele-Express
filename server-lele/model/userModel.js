@@ -9,10 +9,6 @@ const User = mongoose.model('User', {
         type: String,
         required: true
     },
-    status: {
-        type: String,
-        required: true
-    },
     password: {
         type: String,
         required: true

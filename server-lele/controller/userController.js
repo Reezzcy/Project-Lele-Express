@@ -77,7 +77,7 @@ const User = require('../model/userModel');
 
 const postUser = async (req, res) => {
     try {
-        await User.insertOne(req.body);
+        await User.insertMany(req.body);
         res.json({ msg: 'Berhasil input user!' });
     } catch (error) {
         res.status(500).json({ msg: 'Gagal input user!', error });

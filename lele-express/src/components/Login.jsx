@@ -49,36 +49,39 @@ function Login() {
         body: JSON.stringify({ nama, email, password }),
         credentials: "include",
       });
-
+  
       if (!response.ok) {
         const errorData = await response.json();
         throw new Error(errorData.msg);
       }
-
+  
       const result = await response.json();
-
+  
       if (result.msg === "Login successful") {
         setMessage(`Welcome ${nama}!`);
-
+  
         // Fetch the session data to determine the user's role
         const sessionResponse = await fetch("http://localhost:3000/profile/session", {
           method: "GET",
           credentials: "include",
         });
-
+  
         if (!sessionResponse.ok) {
           const errorData = await sessionResponse.json();
           throw new Error(errorData.msg);
         }
-
+  
         const sessionData = await sessionResponse.json();
         const role = sessionData.user.role;
-
+  
         // Navigate based on the role
         if (role === "admin") {
-          navigate("/dashboard2");
+          navigate("/dashboardAdmin");
+        } else if (role === "user") {
+          navigate("/dashboardUser");
         } else {
-          navigate("/dashboard");
+          // Handle other roles or unexpected scenarios
+          throw new Error("Unsupported role");
         }
       }
     } catch (error) {

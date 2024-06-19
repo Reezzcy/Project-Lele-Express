@@ -10,14 +10,39 @@ const postJadwal = async (req, res) => {
     }
 };
 
+// const getAllJadwal = async (req, res) => {
+//     try {
+//         const jadwal = await Jadwal.find();
+//         res.json(jadwal);
+//     } catch (error) {
+//         res.status(500).json({ msg: 'Jadwal tidak ditemukan!', error });
+//     }
+// };
+
 const getAllJadwal = async (req, res) => {
     try {
-        const jadwal = await Jadwal.find();
+        console.log('arr1')
+        Jadwal.insertMany(
+            {
+            "idKereta": "666db8815e95343878e7da48",
+            "idStasiunAwal": "666db41549e50bd0facdcdfa",
+            "idStasiunAkhir":  "666db41a49e50bd0facdcdfb",
+            "tanggal": "20 10 2024",
+            "jam": "8"
+            })
+            console.log('arr11/2')
+        const jadwal = await Jadwal.find()
+            .populate('idKereta')
+            .populate('idStasiunAwal')
+            .populate('idStasiunAkhir');
+        console.log("arr2")
         res.json(jadwal);
     } catch (error) {
+        console.error('Error fetching jadwal:', error);
         res.status(500).json({ msg: 'Jadwal tidak ditemukan!', error });
     }
 };
+
 
 const getJadwalByTujuan = async (req, res) => {
     try {
