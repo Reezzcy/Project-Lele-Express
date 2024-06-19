@@ -13,17 +13,18 @@ function EditJadwal() {
   }, []);
 
   const handleDelete = (id) => {
-    fetch(`http://localhost:3000/admin/delete-jadwal/${id}`, {
+    console.log(id);
+    fetch("http://localhost:3000/admin/delete-jadwal", {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ _id: id }), // Correct the body to send the id directly
+      body: JSON.stringify({ _id: id }),
       credentials: "include"
     })
       .then(() => {
         // Remove the deleted item from the state
-        setJadwal(jadwal.filter((item) => item.idKereta.$oid !== id));
+        setJadwal(jadwal.filter((item) => item._id !== id));
       })
       .catch((error) => console.error("Error deleting data:", error));
   };
@@ -54,13 +55,13 @@ function EditJadwal() {
               <p><strong>Jam:</strong> {item.jam}</p>
               <div className="mt-4">
                 <button
-                  onClick={() => handleEdit(item.idKereta.$oid)}
+                  onClick={() => handleEdit(item._id)}
                   className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2"
                 >
                   Edit
                 </button>
                 <button
-                  onClick={() => handleDelete(item.idKereta.$oid)}
+                  onClick={() => handleDelete(item._id)}
                   className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
                 >
                   Delete
