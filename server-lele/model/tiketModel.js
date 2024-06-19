@@ -3,7 +3,8 @@ const mongoose = require('mongoose');
 const Tiket = mongoose.model('Tiket', {
     idJadwal: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true
+        required: true,
+        ref: 'Jadwal'
     },
     noBangku: {
         type: String,
