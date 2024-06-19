@@ -10,7 +10,12 @@ require('./utils/db');
 const server = express();
 const port = 3000;
 
-server.use(cors());
+const corsOptions = {
+    origin: 'http://localhost:5173',
+    credentials: true,
+};
+
+server.use(cors(corsOptions));
 
 server.use(cookieParser('secret'));
 server.use(session({
