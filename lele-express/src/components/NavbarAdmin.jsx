@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+// src/components/NavbarAdmin.jsx
 
-const NavBar = () => {
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
+
+const NavBar = ({ toggleLihatPeta, toggleEditJadwal, toggleEditKereta }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
@@ -30,13 +33,14 @@ const NavBar = () => {
           </button>
         </div>
         <div className="hidden md:flex space-x-4">
-          <a href="#" className="text-white">Edit Jadwal</a>
-          <a href="#" className="text-white">Edit Kereta</a>
-          <a href="#" className="text-white">Riwayat Penjualan</a>
-          <a href="#" className="text-white">Lihat Peta</a>
-          <a href="#" className="text-white">Logout</a>
+          <button onClick={toggleEditJadwal} className="text-white focus:outline-none">Edit Jadwal</button>
+          <button onClick={toggleEditKereta} className="text-white focus:outline-none">Edit Kereta</button>
+          <button onClick={toggleLihatPeta} className="text-white focus:outline-none">Lihat Peta</button>
+          <Link to="/" className="text-white focus:outline-none">Logout</Link>
+          {/* Other menu items */}
         </div>
       </nav>
+      {/* Sidebar */}
       {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50">
           <div className="fixed left-0 top-0 w-64 h-full bg-white p-4 z-50">
@@ -56,12 +60,14 @@ const NavBar = () => {
                 ></path>
               </svg>
             </button>
-            <nav className="mt-4 space-y-4">
-              <a href="#" className="block py-2 px-4 text-black hover:bg-gray-200">Edit Jadwal</a>
-              <a href="#" className="block py-2 px-4 text-black hover:bg-gray-200">Edit Kereta</a>
-              <a href="#" className="block py-2 px-4 text-black hover:bg-gray-200">Riwayat Penjualan</a>
-              <a href="#" className="block py-2 px-4 text-black hover:bg-gray-200">Lihat Peta</a>
-              <a href="#" className="block py-2 px-4 text-black hover:bg-gray-200">Logout</a>
+            <nav className="mt-4">
+              <ul className="space-y-4">
+                <li className="mb-6"><button onClick={toggleEditJadwal} className="text-black focus:outline-none">Edit Jadwal</button></li>
+                <li className="mb-6"><button onClick={toggleEditKereta} className="text-black focus:outline-none">Edit Kereta</button></li>
+                <li className="mb-6"><button onClick={toggleLihatPeta} className="text-black focus:outline-none">Lihat Peta</button></li>
+                <li className="mb-6"><Link to="/" className="text-black focus:outline-none">Logout</Link></li>
+                {/* Other menu items */}
+              </ul>
             </nav>
           </div>
         </div>

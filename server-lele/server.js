@@ -4,6 +4,7 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const cors = require('cors');
 const routes = require('./routes');
+const { postSession } = require('./middleware/auth');
 
 require('./utils/db');
 
@@ -21,7 +22,7 @@ server.use(cookieParser('secret'));
 server.use(session({
     secret: 'secret',
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: { maxAge: 3600000 }
 }));
 
@@ -29,6 +30,8 @@ server.use(express.json());
 server.use(express.urlencoded({extended: true}));
 
 server.use(methodOverride('_method'));
+
+server.use(postSession);
 
 server.use(routes);
 

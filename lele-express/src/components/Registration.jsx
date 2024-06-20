@@ -50,7 +50,7 @@ function Registration() {
             </h2>
             <p className="text-white mb-4"></p>
             <Link
-              to="/login"
+              to="/"
               className="w-full md:w-1/2 text-center bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300"
             >
               Login

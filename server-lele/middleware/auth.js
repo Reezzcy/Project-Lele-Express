@@ -22,8 +22,21 @@ const getSession = (req, res) => {
     }
 };
 
+const postSession = async (req, res, next) => {
+    try {
+        // console.log('Checking success session:', req.session);
+        const { username, id, role } = req.session.user;
+        req.session.user = {id, username, role};
+        next();
+    } catch {
+        // console.log('Checking failed session:', req.session);
+        next();
+    }
+};
+
 module.exports= {
     adminMiddleware,
     userMiddleware,
-    getSession
+    getSession,
+    postSession
 };

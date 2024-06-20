@@ -1,4 +1,5 @@
 const User = require('../model/userModel');
+const session = require('express-session');
 
 const postUser = async (req, res) => {
     try {
@@ -22,24 +23,53 @@ const getUserId = async (req, res) => {
     }
 };
 
+// const postUserLogin = async (req, res) => {
+//     try {
+//         const { nama, email, password } = req.body;
+//         const account = await User.findOne({ nama, email });
+
+//         if (account && account.password === password) {
+//             req.session.user = {
+//                 id: account._id,
+//                 username: account.nama,
+//                 role: email.includes('@admin.lele.com') ? 'admin' : 'user'
+//             };
+
+//             res.json({ msg: 'Login successful' });
+//         } else {
+//             res.status(401).json({ msg: 'Invalid credentials' });
+//         }
+//     } catch (error) {
+//         res.status(500).json({ msg: 'Tidak dapat login!', error });
+//     }
+// };
+
 const postUserLogin = async (req, res) => {
     try {
         const { nama, email, password } = req.body;
         const account = await User.findOne({ nama, email });
 
         if (account && account.password === password) {
+            // Tentukan role berdasarkan alamat email
+            const role = email.includes('@admin.lele.com') ? 'admin' : 'user';
+
+            // Simpan data user ke dalam sesi
             req.session.user = {
                 id: account._id,
                 username: account.nama,
-                role: email.includes('@admin.lele.com') ? 'admin' : 'user'
+                role: role
             };
 
-            res.json({ msg: 'Login successful' });
+            // Simpan sesi dan respon dengan pesan sukses
+            req.session.save(() => {
+                res.json({ msg: 'Login successful' });
+            });
         } else {
             res.status(401).json({ msg: 'Invalid credentials' });
         }
     } catch (error) {
-        res.status(500).json({ msg: 'Tidak dapat login!', error });
+        console.error('Login error:', error);
+        res.status(500).json({ msg: 'Cannot login!', error });
     }
 };
 
