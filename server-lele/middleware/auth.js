@@ -1,16 +1,20 @@
 const adminMiddleware = (req, res, next) => {
+    console.log('Admin middleware called');
     if (req.session.user && req.session.user.role === 'admin') {
         next();
     } else {
-        res.status(401).json({ msg: 'No active session' });
+        console.log('Admin middleware: No active session or unauthorized');
+        res.status(401).json({ msg: 'Unauthorized' });
     }
 };
 
 const userMiddleware = (req, res, next) => {
+    console.log('User middleware called');
     if (req.session.user && req.session.user.role === 'user') {
         next();
     } else {
-        res.status(401).json({ msg: 'No active session' });
+        console.log('User middleware: No active session or unauthorized');
+        res.status(401).json({ msg: 'Unauthorized' });
     }
 };
 
@@ -22,21 +26,8 @@ const getSession = (req, res) => {
     }
 };
 
-const postSession = async (req, res, next) => {
-    try {
-        // console.log('Checking success session:', req.session);
-        const { username, id, role } = req.session.user;
-        req.session.user = {id, username, role};
-        next();
-    } catch {
-        // console.log('Checking failed session:', req.session);
-        next();
-    }
-};
-
-module.exports= {
+module.exports = {
     adminMiddleware,
     userMiddleware,
-    getSession,
-    postSession
+    getSession
 };

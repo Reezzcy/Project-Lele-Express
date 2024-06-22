@@ -12,13 +12,34 @@ const postTiket = async (req, res) => {
 
 const getTiketByUser = async (req, res) => {
     try {
-        const { nama } = req.body;
-        const tiketTrue = await Tiket.find({ nama, status: true });
-        const tiketFalse = await Tiket.find({ nama, status: false });
+        const { username } = req.session.user;
+
+        const tiketTrue = await Tiket.find({ nama: username, status: true })
+            .populate({
+                path: 'idJadwal',
+                populate: [
+                    { path: 'idKereta' }, 
+                    { path: 'idStasiunAwal' }, 
+                    { path: 'idStasiunAkhir' } 
+                ],
+            });
+
+
+        const tiketFalse = await Tiket.find({ nama: username, status: false })
+            .populate({
+                path: 'idJadwal',
+                populate: [
+                    { path: 'idKereta' },    
+                    { path: 'idStasiunAwal' }, 
+                    { path: 'idStasiunAkhir' } 
+                ],
+            });
 
         const result = [...tiketTrue, ...tiketFalse];
-        
-        return result;
+
+        console.log(result);
+
+        return res.status(200).json(result);
     } catch (error) {
         res.status(500).json({ msg: 'Tiket tidak ditemukan!', error });
     }
@@ -37,7 +58,7 @@ const getTiketByTujuan = async (req, res) => {
     try {
         const tikets = await getTiketByUser(req);
         const filteredTikets = tikets.filter((tiket) => tiket.idStasiunAkhir === req.body.idStasiunAkhir);
-        
+
         res.json(filteredTikets);
     } catch (error) {
         res.status(500).json({ msg: 'Tiket tidak ditemukan!', error });
@@ -48,7 +69,7 @@ const getTiketByKeberangkatan = async (req, res) => {
     try {
         const tikets = await getTiketByUser(req);
         const filteredTikets = tikets.filter((tiket) => tiket.idStasiunAwal === req.body.idStasiunAwal);
-    
+
         res.json(filteredTikets);
     } catch (error) {
         res.status(500).json({ msg: 'Tiket tidak ditemukan!', error });
@@ -59,11 +80,11 @@ const getTiketByTanggal = async (req, res) => {
     try {
         const jadwals = await Jadwal.find({ tanggal: req.body.tanggal });
         const userTikets = await getTiketByUser(req);
-    
+
         const filteredTikets = userTikets.filter(tiket => {
             return jadwals.some(jadwal => jadwal._id.equals(tiket.idJadwal));
         });
-    
+
         const result = filteredTikets.map(tiket => {
             const jadwal = jadwals.find(jadwal => jadwal._id.equals(tiket.idJadwal));
             return {
@@ -80,7 +101,7 @@ const getTiketByTanggal = async (req, res) => {
                 }
             };
         });
-    
+
         res.json(result);
     } catch (error) {
         res.status(500).json({ msg: 'Tiket tidak ditemukan!', error });
@@ -98,6 +119,7 @@ const getDetailTiket = async (req, res) => {
 
 module.exports = {
     postTiket,
+    getTiketByUser,
     getTiketByJadwal,
     getTiketByTujuan,
     getTiketByKeberangkatan,

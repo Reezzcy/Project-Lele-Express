@@ -1,19 +1,33 @@
 // src/components/NavbarAdmin.jsx
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-const NavBar = ({ toggleLihatPeta, toggleDaftarJadwal, toggleDaftarRiwayat, toggleEditProfile  }) => {
+const NavBar = ({ toggleLihatPeta, toggleDaftarJadwal, toggleDaftarRiwayat, toggleEditProfil  }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
     setIsOpen(!isOpen);
   };
 
+  useEffect(() => {
+    const closeSidebarOnOutsideClick = (e) => {
+      if (isOpen && e.target.closest('.sidebar') === null) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', closeSidebarOnOutsideClick);
+
+    return () => {
+      document.removeEventListener('mousedown', closeSidebarOnOutsideClick);
+    };
+  }, [isOpen]);
+
   return (
     <div>
       <nav className="bg-blue-500 p-4 flex justify-between items-center">
-        <div className="text-white text-lg">Lele Express</div>
+        <div className="text-white text-4xl">Lele Express</div>
         <div className="md:hidden">
           <button onClick={toggleSidebar} className="text-white focus:outline-none">
             <svg
@@ -33,12 +47,11 @@ const NavBar = ({ toggleLihatPeta, toggleDaftarJadwal, toggleDaftarRiwayat, togg
           </button>
         </div>
         <div className="hidden md:flex space-x-4">
-          <button onClick={toggleDaftarJadwal} className="text-white focus:outline-none">Daftar Jadwal</button>
-          <button onClick={toggleDaftarRiwayat} className="text-white focus:outline-none">Daftar Riwayat</button>
-          <button onClick={toggleLihatPeta} className="text-white focus:outline-none">Lihat Peta</button>
-          <button onClick={toggleEditProfile} className="text-white focus:outline-none">Edit Profile</button>
-          
-          <Link to="/" className="text-white focus:outline-none">Logout</Link>
+          <button onClick={toggleDaftarJadwal} className="navbar-item text-white text-xl focus:outline-none">Daftar Jadwal</button>
+          <button onClick={toggleDaftarRiwayat} className="navbar-item text-white text-xl focus:outline-none">Daftar Riwayat</button>
+          <button onClick={toggleLihatPeta} className="navbar-item text-white text-xl focus:outline-none">Lihat Peta</button>
+          <button onClick={toggleEditProfil} className="navbar-item text-white text-xl focus:outline-none">Edit Profil</button>
+          <Link to="/" className="navbar-item text-white text-xl focus:outline-none">Logout</Link>
           {/* Other menu items */}
         </div>
       </nav>
@@ -64,11 +77,11 @@ const NavBar = ({ toggleLihatPeta, toggleDaftarJadwal, toggleDaftarRiwayat, togg
             </button>
             <nav className="mt-4">
               <ul className="space-y-4">
-                <li className="mb-6"><button onClick={toggleDaftarJadwal} className="text-black focus:outline-none">Daftar Jadwal</button></li>
-                <li className="mb-6"><button onClick={toggleDaftarRiwayat} className="text-black focus:outline-none">Daftar Riwayat</button></li>
-                <li className="mb-6"><button onClick={toggleLihatPeta} className="text-black focus:outline-none">Lihat Peta</button></li>
-                <li className="mb-6"><button onClick={toggleEditProfile} className="text-black focus:outline-none">Edit Profile</button></li>
-                <li className="mb-6"><Link to="/" className="text-black focus:outline-none">Logout</Link></li>
+                <li className="mb-6"><button onClick={toggleDaftarJadwal} className="navbar-item-side text-black text-xl focus:outline-none">Daftar Jadwal</button></li>
+                <li className="mb-6"><button onClick={toggleDaftarRiwayat} className="navbar-item-side text-black text-xl focus:outline-none">Daftar Riwayat</button></li>
+                <li className="mb-6"><button onClick={toggleLihatPeta} className="navbar-item-side text-black text-xl focus:outline-none">Lihat Peta</button></li>
+                <li className="mb-6"><button onClick={toggleEditProfil} className="navbar-item-side text-black text-xl focus:outline-none">Edit Profil</button></li>
+                <li className="mb-6"><Link to="/" className="navbar-item-side text-black text-xl focus:outline-none">Logout</Link></li>
                 {/* Other menu items */}
               </ul>
             </nav>

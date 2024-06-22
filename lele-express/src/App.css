@@ -1,4 +1,4 @@
-body{
+/* body{
   display: flex;
   align-items: center;
   justify-content: center;
@@ -51,4 +51,90 @@ input[type=text], input[type=email], input[type=password]{
 .title {
   text-align: center;
   margin-bottom: 20px;
+} */
+
+@keyframes slideInFromBottom {
+  0% {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* index.css atau App.css */
+.flip-enter {
+  transform: rotateY(90deg);
+}
+.flip-enter-active {
+  transform: rotateY(0);
+  transition: transform 1000ms;
+}
+.flip-exit {
+  transform: rotateY(0);
+}
+.flip-exit-active {
+  transform: rotateY(90deg);
+  transition: transform 1000ms;
+}
+
+
+.slide-in-bottom {
+  animation: slideInFromBottom 0.5s ease-out;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+}
+
+.navbar-item {
+  position: relative;
+  padding-bottom: 5px;
+  display: inline-block;
+}
+
+.navbar-item::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  display: block;
+  margin-top: 5px;
+  right: 0;
+  background: white;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.navbar-item:hover::after {
+  width: 100%;
+  left: 0;
+  background: white;
+}
+
+.navbar-item-side {
+  position: relative;
+  padding-bottom: 5px;
+  display: inline-block;
+}
+
+.navbar-item-side::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  display: block;
+  margin-top: 5px;
+  right: 0;
+  background: #3B82F6;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.navbar-item-side:hover::after {
+  width: 100%;
+  left: 0;
+  background: #3B82F6;
 }

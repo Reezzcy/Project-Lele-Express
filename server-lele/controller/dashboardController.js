@@ -15,9 +15,9 @@ const postJadwal = async (req, res) => {
 const getAllJadwal = async (req, res) => {
     try {
         const jadwal = await Jadwal.find()
-        .populate('idKereta')
-        .populate('idStasiunAwal')
-        .populate('idStasiunAkhir');
+            .populate('idKereta')
+            .populate('idStasiunAwal')
+            .populate('idStasiunAkhir');
 
         res.json(jadwal);
     } catch (error) {
@@ -29,9 +29,9 @@ const getAllJadwal = async (req, res) => {
 const getJadwalById = async (req, res) => {
     try {
         const jadwal = await Jadwal.find({ _id: req.body.id })
-        .populate('idKereta')
-        .populate('idStasiunAwal')
-        .populate('idStasiunAkhir');
+            .populate('idKereta')
+            .populate('idStasiunAwal')
+            .populate('idStasiunAkhir');
 
         res.json(jadwal);
     } catch (error) {
@@ -43,9 +43,9 @@ const getJadwalById = async (req, res) => {
 const getJadwalByTujuan = async (req, res) => {
     try {
         const jadwal = await Jadwal.find({ idStasiunAkhir: req.body.idStasiunAkhir })
-        .populate('idKereta')
-        .populate('idStasiunAwal')
-        .populate('idStasiunAkhir');
+            .populate('idKereta')
+            .populate('idStasiunAwal')
+            .populate('idStasiunAkhir');
 
         res.json(jadwal);
     } catch (error) {
@@ -56,9 +56,9 @@ const getJadwalByTujuan = async (req, res) => {
 const getJadwalByKeberangkatan = async (req, res) => {
     try {
         const jadwal = await Jadwal.find({ idStasiunAwal: req.body.idStasiunAwal })
-        .populate('idKereta')
-        .populate('idStasiunAwal')
-        .populate('idStasiunAkhir');
+            .populate('idKereta')
+            .populate('idStasiunAwal')
+            .populate('idStasiunAkhir');
 
         res.json(jadwal);
     } catch (error) {
@@ -69,9 +69,9 @@ const getJadwalByKeberangkatan = async (req, res) => {
 const getJadwalByTanggal = async (req, res) => {
     try {
         const jadwal = await Jadwal.find({ tanggal: req.body.tanggal })
-        .populate('idKereta')
-        .populate('idStasiunAwal')
-        .populate('idStasiunAkhir');
+            .populate('idKereta')
+            .populate('idStasiunAwal')
+            .populate('idStasiunAkhir');
 
         res.json(jadwal);
     } catch (error) {
@@ -165,7 +165,7 @@ const getAllStasiun = async (req, res) => {
     }
 };
 
-module.exports = { 
+module.exports = {
     postJadwal,
     getAllJadwal,
     getJadwalById,

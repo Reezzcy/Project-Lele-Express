@@ -4,34 +4,37 @@ const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const cors = require('cors');
 const routes = require('./routes');
-const { postSession } = require('./middleware/auth');
 
+require('dotenv').config();
 require('./utils/db');
 
 const server = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 const corsOptions = {
-    origin: 'http://localhost:5173',
+    origin: process.env.CORS_ORIGIN,
     credentials: true,
 };
 
 server.use(cors(corsOptions));
 
-server.use(cookieParser('secret'));
+server.use(cookieParser(process.env.SESSION_SECRET));
 server.use(session({
-    secret: 'secret',
+    secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: false,
-    cookie: { maxAge: 3600000 }
+    saveUninitialized: true,
+    cookie: { maxAge: parseInt(process.env.COOKIE_MAX_AGE, 10) }
 }));
 
 server.use(express.json());
-server.use(express.urlencoded({extended: true}));
+server.use(express.urlencoded({ extended: true }));
 
 server.use(methodOverride('_method'));
 
-server.use(postSession);
+server.use((req, res, next) => {
+    console.log('Current session:', req.session);
+    next();
+});
 
 server.use(routes);
 

@@ -4,23 +4,26 @@ import { useNavigate } from "react-router-dom";
 function DaftarJadwal() {
   const [jadwal, setJadwal] = useState([]);
   const navigate = useNavigate();
+  const [selectedJadwal, setSelectedJadwal] = useState(null);
 
   useEffect(() => {
-    // Fetch schedule data from the JSON server
-    fetch("http://localhost:3000/user/jadwal")
+    fetch("http://localhost:3000/user/jadwal",{
+      method : "GET",
+      credentials : "include"
+    })
       .then((response) => response.json())
       .then((data) => setJadwal(data))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
-  const handleClick = (id) => {
-    navigate(`/formTiket`);
+  const handleClick = (jadwal) => {
+    setSelectedJadwal(jadwal);
+    navigate('/FormTiket', { state: { jadwal } });
   };
 
   return (
-    <div className="bg-gray-800 p-4 rounded-lg shadow-lg text-white">
-      <h2 className="text-2xl font-bold mb-4">Edit Jadwal</h2>
-      <p className="text-white mb-4"></p>
+    <div className="bg-blue-500 p-4 rounded-lg shadow-lg text-white">
+      <h2 className="text-2xl font-bold mb-4">Daftar Jadwal</h2>
       {jadwal.length === 0 ? (
         <p>Loading...</p>
       ) : (
@@ -28,8 +31,8 @@ function DaftarJadwal() {
           {jadwal.map((item) => (
             <div
               key={item._id}
-              onClick={() => handleClick(item._id)}
-              className="bg-gray-300 p-4 rounded-lg shadow-md text-black cursor-pointer"
+              onClick={() => handleClick(item)}
+              className="bg-gray-300 p-4 rounded-lg shadow-md text-black cursor-pointer "
             >
               <p><strong>Nama Kereta:</strong> {item.idKereta.namaKereta}</p>
               <p><strong>Stasiun Awal:</strong> {item.idStasiunAwal.namaStasiun}</p>

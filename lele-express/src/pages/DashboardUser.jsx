@@ -4,19 +4,19 @@ import React, { useState } from "react";
 import Navbar from "../components/NavbarUser";
 import DaftarJadwal from "../components/DaftarJadwal";
 import DaftarRiwayat from "../components/DaftarRiwayat";
-import EditProfile from "../components/EditProfile";
+import EditProfil from "../components/EditProfil";
 import LihatPeta from "../components/LihatPeta";
 
 function Dashboard() {
   const [showDaftarJadwal, setShowDaftarJadwal] = useState(true);
   const [showDaftarRiwayat, setShowDaftarRiwayat] = useState(false);
-  const [showEditProfile, setShowEditProfile] = useState(false);
+  const [showEditProfil, setShowEditProfil] = useState(false);
   const [showLihatPeta, setShowLihatPeta] = useState(false);
 
   const toggleDaftarJadwal = () => {
     setShowDaftarJadwal(!showDaftarJadwal);
     setShowLihatPeta(false); 
-    setShowEditProfile(false);
+    setShowEditProfil(false);
     setShowDaftarRiwayat(false);
   };
 
@@ -24,11 +24,11 @@ function Dashboard() {
     setShowDaftarRiwayat(!showDaftarRiwayat);
     setShowLihatPeta(false); 
     setShowDaftarJadwal(false);
-    setShowEditProfile(false);
+    setShowEditProfil(false);
   };
 
-  const toggleEditProfile = () => {
-    setShowEditProfile(!showEditProfile);
+  const toggleEditProfil = () => {
+    setShowEditProfil(!showEditProfil);
     setShowLihatPeta(false); 
     setShowDaftarJadwal(false);
     setShowDaftarRiwayat(false);
@@ -37,19 +37,19 @@ function Dashboard() {
   const toggleLihatPeta  = () => {
     setShowLihatPeta(!showLihatPeta);
     setShowDaftarJadwal(false); 
-    setShowEditProfile(false);
+    setShowEditProfil(false);
     setShowDaftarRiwayat(false);
   };
 
 
   return (
     <div className="flex-1">
-      <Navbar toggleDaftarJadwal={toggleDaftarJadwal} toggleDaftarRiwayat={toggleDaftarRiwayat} toggleEditProfile={toggleEditProfile} toggleLihatPeta={toggleLihatPeta}/>
+      <Navbar toggleDaftarJadwal={toggleDaftarJadwal} toggleDaftarRiwayat={toggleDaftarRiwayat} toggleEditProfil={toggleEditProfil} toggleLihatPeta={toggleLihatPeta}/>
       <div className="container mx-auto mt-4">
         <h1 className="text-3xl font-bold text-white mb-4">UserDashboard</h1>
       {showDaftarJadwal && <DaftarJadwal/>}
       {showDaftarRiwayat && <DaftarRiwayat/>}
-      {showEditProfile && <EditProfile/>}
+      {showEditProfil && <EditProfil/>}
       {showLihatPeta && <LihatPeta/>}
       </div>
     </div>
