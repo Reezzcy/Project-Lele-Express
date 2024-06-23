@@ -54,5 +54,5 @@ npm run dev
 ```
 
 ## Contributors
-[Nicolas Debrito](https://github.com/Reezzcy)
-[Rahman Ilyas Al Kahfi](https://github.com/Kahfii)
+- [Nicolas Debrito](https://github.com/Reezzcy)
+- [Rahman Ilyas Al Kahfi](https://github.com/Kahfii)
