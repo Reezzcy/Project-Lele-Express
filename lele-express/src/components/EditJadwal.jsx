@@ -14,6 +14,7 @@ function EditJadwal() {
     tanggal: "",
     jam: "",
   });
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     fetchJadwal();
@@ -178,6 +179,10 @@ function EditJadwal() {
         });
         fetchJadwal();
         setIsAdding(false);
+        setSuccessMessage("Jadwal berhasil ditambahkan!");
+        setTimeout(() => {
+          setSuccessMessage("");
+        }, 3000); // Hide success message after 3 seconds
       })
       .catch((error) => console.error("Error adding data:", error));
   };
@@ -193,6 +198,11 @@ function EditJadwal() {
           {isAdding ? "Batal Tambah Jadwal" : "Tambah Jadwal"}
         </button>
       </div>
+      {successMessage && (
+        <div className="bg-green-300 text-green-800 p-2 rounded mb-4">
+          {successMessage}
+        </div>
+      )}
       {isAdding && (
         <div className="bg-gray-300 p-4 rounded-lg shadow-md text-black mb-4">
           <h3 className="text-xl font-bold mb-4">Tambah Jadwal Baru</h3>

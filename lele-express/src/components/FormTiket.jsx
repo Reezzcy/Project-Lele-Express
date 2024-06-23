@@ -6,7 +6,7 @@ function FormTiket() {
   const { jadwal } = location.state;
   const [nama, setNama] = useState('');
   const [noBangku, setNoBangku] = useState('');
-  const [status, setStatus] = useState(true);
+  const [status, setStatus] = useState(true); // You can set the default value here
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -70,15 +70,12 @@ function FormTiket() {
           </select>
         </div>
 
-        <div className="mb-4">
-          <label className="block text-black">Status</label>
-          <input 
-            type="checkbox" 
-            className="form-control" 
-            checked={status} 
-            onChange={(e) => setStatus(e.target.checked)} 
-          />
-        </div>
+        <input 
+          type="hidden" 
+          value={status} 
+          name="status" 
+        />
+
         <div className="flex justify-between">
           <button type="submit" className="bg-blue-500 p-2 rounded-lg text-white">Pesan</button>
           <button type="button" onClick={handleCancel} className="bg-red-500 p-2 rounded-lg text-white">Batal</button>

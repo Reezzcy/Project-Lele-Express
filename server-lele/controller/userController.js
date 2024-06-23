@@ -43,37 +43,6 @@ const postUserLogin = async (req, res) => {
     }
 };
 
-
-// const postUserLogin = async (req, res) => {
-//     try {
-//         const { nama, email, password } = req.body;
-//         const account = await User.findOne({ nama, email });
-
-//         if (account && account.password === password) {
-//             // Tentukan role berdasarkan alamat email
-//             const role = email.includes('@admin.lele.com') ? 'admin' : 'user';
-
-//             // Simpan data user ke dalam sesi
-//             req.session.user = {
-//                 id: account._id,
-//                 username: account.nama,
-//                 role: role
-//             };
-
-//             // Simpan sesi dan respon dengan pesan sukses
-//             req.session.save(() => {
-//                 res.json({ msg: 'Login successful' });
-//             });
-//         } else {
-//             res.status(401).json({ msg: 'Invalid credentials' });
-//         }
-//     } catch (error) {
-//         console.error('Login error:', error);
-//         res.status(500).json({ msg: 'Cannot login!', error });
-//     }
-// };
-
-
 const putEditUser = async (req, res) => {
     try {
         console.log(req.body);

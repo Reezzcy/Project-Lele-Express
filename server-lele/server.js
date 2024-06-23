@@ -32,7 +32,7 @@ server.use(express.urlencoded({ extended: true }));
 server.use(methodOverride('_method'));
 
 server.use((req, res, next) => {
-    console.log('Current session:', req.session);
+    // console.log('Current session:', req.session);
     next();
 });
 

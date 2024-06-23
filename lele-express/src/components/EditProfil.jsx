@@ -6,7 +6,8 @@ function EditProfile() {
     email: "",
     password: "",
   });
-  const [showPassword, setShowPassword] = useState(false); // State untuk mengontrol tampilan password
+  const [showPassword, setShowPassword] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(""); // State for success message
 
   useEffect(() => {
     fetch("http://localhost:3000/profile/id", {
@@ -29,7 +30,7 @@ function EditProfile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await fetch("http://localhost:3000/profile/edit", {
+      const response = await fetch("http://localhost:3000/profile/edit", {
         method: "PUT",
         credentials: "include",
         headers: {
@@ -37,6 +38,12 @@ function EditProfile() {
         },
         body: JSON.stringify(profile),
       });
+
+      if (response.ok) {
+        setSuccessMessage("Profile updated successfully!");
+      } else {
+        throw new Error("Failed to update profile");
+      }
     } catch (error) {
       console.error("Error updating profile:", error);
     }
@@ -49,6 +56,11 @@ function EditProfile() {
   return (
     <div className="bg-gray-100 p-4 rounded-lg shadow-lg">
       <h2 className="text-2xl font-bold mb-4">Edit Profile</h2>
+      {successMessage && (
+        <div className="mb-4 p-2 text-green-700 bg-green-100 rounded-lg">
+          {successMessage}
+        </div>
+      )}
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
           <label className="block text-black">Nama</label>
@@ -76,14 +88,13 @@ function EditProfile() {
           <label className="block text-black">Password</label>
           <div className="relative">
             <input
-              type={showPassword ? "text" : "password"} // Menggunakan kondisi untuk menampilkan sebagai text atau password
+              type={showPassword ? "text" : "password"}
               name="password"
-              className="w-full p-2 rounded-lg pr-10" // Padding kanan untuk tombol toggle
+              className="w-full p-2 rounded-lg pr-10"
               value={profile.password}
               onChange={handleChange}
               required
             />
-            {/* Tombol untuk toggle tampilan password dengan ikon mata */}
             <button
               type="button"
               onClick={togglePasswordVisibility}

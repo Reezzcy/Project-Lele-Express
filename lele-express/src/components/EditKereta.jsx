@@ -9,6 +9,7 @@ function EditKereta() {
     namaKereta: "",
     jumlahGerbong: "",
   });
+  const [successMessage, setSuccessMessage] = useState(""); // State for success message
 
   useEffect(() => {
     fetchKereta();
@@ -54,7 +55,6 @@ function EditKereta() {
     }
   };
 
-
   const handleUpdateKereta = () => {
     fetch(`http://localhost:3000/admin/edit-kereta`, {
       method: "PUT", // Gunakan PUT atau PATCH sesuai dengan API Anda
@@ -91,6 +91,10 @@ function EditKereta() {
           namaKereta: "",
           jumlahGerbong: "",
         });
+        setSuccessMessage("Kereta berhasil ditambahkan!");
+        setTimeout(() => {
+          setSuccessMessage(""); // Menghapus pesan sukses setelah beberapa detik
+        }, 3000);
         fetchKereta();
         setIsAdding(false);
       })
@@ -108,6 +112,11 @@ function EditKereta() {
           {isAdding ? "Batal Tambah Kereta" : "Tambah Kereta"}
         </button>
       </div>
+      {successMessage && (
+        <div className="mb-4 p-2 text-green-700 bg-green-100 rounded-lg">
+          {successMessage}
+        </div>
+      )}
       {isAdding && (
         <div className="bg-gray-300 p-4 rounded-lg shadow-md text-black mb-4">
           <h3 className="text-xl font-bold mb-4">Tambah Kereta Baru</h3>

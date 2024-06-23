@@ -4,7 +4,6 @@ const Stasiun = require('../model/stasiunModel');
 
 const postJadwal = async (req, res) => {
     try {
-        console.log(req.body);
         await Jadwal.insertMany(req.body);
         res.json({ msg: 'Berhasil input jadwal' });
     } catch (error) {
@@ -14,12 +13,10 @@ const postJadwal = async (req, res) => {
 
 const getAllJadwal = async (req, res) => {
     try {
-        console.log(req.body);
         const jadwal = await Jadwal.find()
             .populate('idKereta')
             .populate('idStasiunAwal')
             .populate('idStasiunAkhir');
-        console.log(jadwal);
         res.json(jadwal);
     } catch (error) {
         console.error('Error fetching jadwal:', error);

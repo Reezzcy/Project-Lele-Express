@@ -33,14 +33,4 @@ router.put('/edit-kereta', adminMiddleware,putKereta);
 router.delete('/delete-kereta', adminMiddleware,deleteKereta);
 router.get('/stasiun', adminMiddleware, getAllStasiun);
 
-// router.get('/stasiun', getAllStasiun);
-// router.get('/kereta', getAllKereta);
-// router.get('/jadwal-id', getJadwalById);
-// router.post('/add-jadwal', postJadwal);
-// router.put('/edit-jadwal', putJadwal);
-// router.delete('/delete-jadwal', deleteJadwal);
-// router.post('/add-kereta', postKereta);
-// router.put('/edit-kereta', putKereta);
-// router.delete('/delete-kereta', deleteKereta);
-
 module.exports = router;

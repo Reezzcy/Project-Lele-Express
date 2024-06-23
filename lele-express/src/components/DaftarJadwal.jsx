@@ -4,20 +4,18 @@ import { useNavigate } from "react-router-dom";
 function DaftarJadwal() {
   const [jadwal, setJadwal] = useState([]);
   const navigate = useNavigate();
-  const [selectedJadwal, setSelectedJadwal] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/user/jadwal",{
-      method : "GET",
-      credentials : "include"
+    fetch("http://localhost:3000/user/jadwal", {
+      method: "GET",
+      credentials: "include"
     })
       .then((response) => response.json())
       .then((data) => setJadwal(data))
       .catch((error) => console.error("Error fetching data:", error));
   }, []);
 
-  const handleClick = (jadwal) => {
-    setSelectedJadwal(jadwal);
+  const handlePesanTiket = (jadwal) => {
     navigate('/FormTiket', { state: { jadwal } });
   };
 
@@ -31,8 +29,7 @@ function DaftarJadwal() {
           {jadwal.map((item) => (
             <div
               key={item._id}
-              onClick={() => handleClick(item)}
-              className="bg-gray-300 p-4 rounded-lg shadow-md text-black cursor-pointer "
+              className="bg-gray-300 p-4 rounded-lg shadow-md text-black"
             >
               <p><strong>Nama Kereta:</strong> {item.idKereta.namaKereta}</p>
               <p><strong>Stasiun Awal:</strong> {item.idStasiunAwal.namaStasiun}</p>
@@ -40,6 +37,12 @@ function DaftarJadwal() {
               <p><strong>Jumlah Gerbong:</strong> {item.idKereta.jumlahGerbong}</p>
               <p><strong>Tanggal:</strong> {item.tanggal}</p>
               <p><strong>Jam:</strong> {item.jam}</p>
+              <button
+                onClick={() => handlePesanTiket(item)}
+                className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-2"
+              >
+                Pesan Tiket
+              </button>
             </div>
           ))}
         </div>
