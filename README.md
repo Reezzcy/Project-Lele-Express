@@ -4,13 +4,10 @@
 
 ## Tech Stack * Tools
 - MongoDB
-- HTML
-- CSS
-- Javascipt
-- Tailwind
-- React
 - Express
+- React
 - NodeJS
+- Tailwind
 
 ## How to Use
 1. Clone the repository
@@ -55,3 +52,7 @@ cd .\lele-express
 ```
 npm run dev
 ```
+
+## Contributors
+[Nicolas Debrito](https://github.com/Reezzcy)
+[Rahman Ilyas Al Kahfi](https://github.com/Kahfii)
